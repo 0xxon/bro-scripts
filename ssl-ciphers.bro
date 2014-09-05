@@ -13,8 +13,8 @@ export {
 		ts:             time &log &default=network_time();
 		resp_h:         addr &log;
 		cipher:         string &log;
-		percent:				double &log;
-		connections:		count &log;
+		percent:        double &log;
+		connections:    count &log;
 	};
 
 	## The frequency of logging the stats collected by this script.

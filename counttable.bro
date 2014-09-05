@@ -1,4 +1,4 @@
-# This script provived a COUNTTABLE type for sumstats. This type is basically like
+# This script provives a COUNTTABLE type for sumstats. This type is basically like
 # SUM, with the difference that you have to provide a $str in the observation, and
 # the SUM is calculated independently for each $str.
 #
