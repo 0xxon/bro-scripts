@@ -1,3 +1,13 @@
+# This script provived a COUNTTABLE type for sumstats. This type is basically like
+# SUM, with the difference that you have to provide a $str in the observation, and
+# the SUM is calculated independently for each $str.
+#
+# This makes it optimal to sum up small number of keys per host like, for example,
+# all the TLS ciphers you saw in use for hosts on the local host.
+#
+# Do not try to use this with a big number of different $str values, especially
+# in a cluster setup. It will probably lead to excessive resource use.
+
 @load base/frameworks/sumstats
 
 module SumStats;
