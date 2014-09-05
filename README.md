@@ -13,3 +13,7 @@ all the TLS ciphers you saw in use for hosts on the local host.
 Do not try to use this with a big number of different $str values, especially
 in a cluster setup. It will probably lead to excessive resource use.
 
+[ssl-ciphers.bro](ssl-ciphers.bro)
+----------------------------------
+
+This script calculates the percentage of the use of the different TLS cipher suites for each host in the local network.
