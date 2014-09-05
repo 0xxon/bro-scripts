@@ -17,3 +17,10 @@ in a cluster setup. It will probably lead to excessive resource use.
 ----------------------------------
 
 This script calculates the percentage of the use of the different TLS cipher suites for each host in the local network.
+
+[chrome-sha1.bro](chrome-sha1.bro)
+----------------------------------
+
+This script identifies certificates on the local network which will be
+impacted by the [Chrome SHA-1 sunset changes](http://googleonlinesecurity.blogspot.com/2014/09/gradually-sunsetting-sha-1.html).
+
