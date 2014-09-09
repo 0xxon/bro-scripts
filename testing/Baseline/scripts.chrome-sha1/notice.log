@@ -1,0 +1,11 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	notice
+#open	2014-09-09-20-48-16
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	fuid	file_mime_type	file_desc	proto	note	msg	sub	src	dst	p	n	peer_descr	actions	suppress_for	dropped	remote_location.country_code	remote_location.region	remote_location.city	remote_location.latitude	remote_location.longitude
+#types	time	string	addr	port	addr	port	string	string	string	enum	enum	string	string	addr	addr	port	count	string	set[enum]	interval	bool	string	string	string	double	double
+1410295503.093615	CXWv6p3arKYeMETxOg	192.168.4.149	65057	193.99.144.91	443	F73aYUvBX4YUi0VWf	-	-	tcp	ChromeSHA::SSL_Chrome_SHA_Sunset	The host certificate uses SHA-1. Chrome will consider this unsafe in the future.	Subject: CN=abo.heise.de,OU=PositiveSSL,OU=Domain Control Validated, Issuer: CN=K Software Certificate Authority (DV),O=K Software,L=Ashland,ST=KY,C=US, Signature algorithm: sha1WithRSAEncryption	192.168.4.149	193.99.144.91	443	0	bro	Notice::ACTION_LOG	604800.000000	F	-	-	-	-	-
+1410295503.093615	CXWv6p3arKYeMETxOg	192.168.4.149	65057	193.99.144.91	443	F7wco22SKzeMFjznFh	-	-	tcp	ChromeSHA::SSL_Chrome_SHA_Sunset	An intermediate CA certificate in the chain uses SHA-1. Chrome will consider this unsafe in the future.	Subject: CN=K Software Certificate Authority (DV),O=K Software,L=Ashland,ST=KY,C=US, Issuer: CN=AddTrust External CA Root,OU=AddTrust External TTP Network,O=AddTrust AB,C=SE, Signature algorithm: sha1WithRSAEncryption	192.168.4.149	193.99.144.91	443	1	bro	Notice::ACTION_LOG	604800.000000	F	-	-	-	-	-
+#close	2014-09-09-20-48-16
