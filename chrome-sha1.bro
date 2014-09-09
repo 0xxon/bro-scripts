@@ -65,7 +65,7 @@ event ssl_established(c: connection)
 
 		if ( cert$subject == cert$issuer )
 			# skip the root, it is allowed to use whatever hash algorithm it wants to.
-			return;
+			next;
 
 		if ( /^sha1With/ in cert$sig_alg )
 			local msg: string = "An intermediate CA certificate in the chain uses SHA-1. Chrome will consider this unsafe in the future.";
