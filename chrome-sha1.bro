@@ -5,13 +5,13 @@
 @load base/protocols/ssl
 @load base/frameworks/notice
 
-module ChromeSHA;
+module Chrome;
 
 export {
 	redef enum Notice::Type += {
 		## Indicates that the certificate of a host will be impacted by the google
 		## SHA-1 sunset changes.
-		SSL_Chrome_SHA_Sunset
+		SHA1_Sunset
 	};
 }
 
@@ -72,7 +72,7 @@ event ssl_established(c: connection)
 			if ( i == 0 )
 				msg = "The host certificate uses SHA-1. Chrome will consider this unsafe in the future.";
 
-			local n: Notice::Info = [$note=SSL_Chrome_SHA_Sunset,
+			local n: Notice::Info = [$note=SHA1_Sunset,
 				$msg=msg,
 				$sub=fmt("Subject: %s, Issuer: %s, Signature algorithm: %s", cert$subject, cert$issuer, cert$sig_alg),
 				$conn=c, $n=int_to_count(i),
