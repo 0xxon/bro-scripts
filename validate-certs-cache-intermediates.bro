@@ -21,7 +21,7 @@ export {
 	};
 
 	## MD5 hash values for recently validated chains along with the
-	## validation status message are kept in this table to avoid constant
+	## validation status are kept in this table to avoid constant
 	## validation every time the same certificate chain is seen.
 	global recently_validated_certs: table[string] of X509::Result = table()
 		&read_expire=5mins &synchronized &redef;
@@ -34,17 +34,19 @@ function cache_validate(chain: vector of opaque of x509): X509::Result
 	local chain_hash: vector of string = vector();
 
 	for ( i in chain )
-		{
 		chain_hash[i] = sha1_hash(x509_get_certificate_string(chain[i]));
-		}
 
 	local chain_id = join_string_vec(chain_hash, ".");
+
+	# If we tried this certificate recently, just return the cached result.
 	if ( chain_id in recently_validated_certs )
 		return recently_validated_certs[chain_id];
 
 	local result = x509_verify(chain, root_certs);
 	recently_validated_certs[chain_id] = result;
 
+	# if we have a working chain where we did not store the intermediate certs
+	# in our cache yet - do so
 	local result_chain = result$chain_certs;
 	if ( result$result_string == "ok" && |result_chain| > 2 )
 		{
@@ -75,6 +77,9 @@ event ssl_established(c: connection) &priority=3
 	local issuer = c$ssl$cert_chain[0]$x509$certificate$issuer;
 	local result: X509::Result;
 
+	# look if we already have a working chain for the issuer of this cert.
+	# If yes, try this chain first instead of using the chain supplied from
+	# the server.
 	if ( issuer in intermediate_cache )
 		{
 		intermediate_chain[0] = c$ssl$cert_chain[0]$x509$handle;
@@ -86,6 +91,9 @@ event ssl_established(c: connection) &priority=3
 			return;
 		}
 
+	# validation with known chains failed or there was no fitting intermediate
+	# in our store.
+	# Fall back to validating the certificate with the server-supplied chain
 	local chain: vector of opaque of x509 = vector();
 	for ( i in c$ssl$cert_chain )
 		{

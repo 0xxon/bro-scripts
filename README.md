@@ -24,3 +24,10 @@ This script calculates the percentage of the use of the different TLS cipher sui
 This script identifies certificates on the local network which will be
 impacted by the [Chrome SHA-1 sunset changes](http://googleonlinesecurity.blogspot.com/2014/09/gradually-sunsetting-sha-1.html).
 
+[validate-certs-cache-intermediates.bro](validate-certs-cache-intermediates.bro)
+--------------------------------------------------------------------------------
+This script performs certificate validation of all encountered X509 certificates.
+It mimics browser behavior by caching intermediate-certificates for future validations.
+
+The script is a drop-in replacement for the [validate-certs](https://github.com/bro/bro/blob/master/scripts/policy/protocols/ssl/validate-certs.bro)
+policy script. You cannot load both of them simultaneously.
