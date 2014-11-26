@@ -44,7 +44,7 @@ function cache_validate(chain: vector of opaque of x509): X509::Result
 	recently_validated_certs[chain_id] = result;
 
 	local result_chain = result$chain_certs;
-	if ( |result_chain| > 2 )
+	if ( result$result_string == "ok" && |result_chain| > 2 )
 		{
 		local icert = x509_parse(result_chain[1]);
 		if ( icert$subject !in intermediate_cache )
@@ -70,7 +70,7 @@ event ssl_established(c: connection) &priority=3
 		return;
 
 	local intermediate_chain: vector of opaque of x509 = vector();
-  local issuer = c$ssl$cert_chain[0]$x509$certificate$issuer;
+	local issuer = c$ssl$cert_chain[0]$x509$certificate$issuer;
 	local result: X509::Result;
 
 	if ( issuer in intermediate_cache )
