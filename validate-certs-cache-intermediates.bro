@@ -47,9 +47,9 @@ function cache_validate(chain: vector of opaque of x509): X509::Result
 
 	# if we have a working chain where we did not store the intermediate certs
 	# in our cache yet - do so
-	local result_chain = result$chain_certs;
-	if ( result$result_string == "ok" && |result_chain| > 2 )
+	if ( result$result_string == "ok" && result?$chain_certs && |result$chain_certs| > 2 )
 		{
+		local result_chain = result$chain_certs;
 		local icert = x509_parse(result_chain[1]);
 		if ( icert$subject !in intermediate_cache )
 			{
@@ -88,7 +88,10 @@ event ssl_established(c: connection) &priority=3
 
 		result = cache_validate(intermediate_chain);
 		if ( result$result_string == "ok" )
+			{
+			c$ssl$validation_status = result$result_string;
 			return;
+			}
 		}
 
 	# validation with known chains failed or there was no fitting intermediate
