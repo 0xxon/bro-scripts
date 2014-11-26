@@ -1,4 +1,6 @@
 ##! Perform full certificate chain validation for SSL certificates.
+# Also caches all intermediate certificates encountered so far and use them
+# for future validations.
 
 @load base/frameworks/notice
 @load base/protocols/ssl
@@ -25,7 +27,7 @@ export {
 		&read_expire=5mins &synchronized &redef;
 }
 
-global intermediate_cache: table[string] of vector of opaque of x509;
+global intermediate_cache: table[string] of vector of opaque of x509 &synchronized;
 
 function cache_validate(chain: vector of opaque of x509): X509::Result
 	{
