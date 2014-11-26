@@ -3,10 +3,10 @@
 #empty_field	(empty)
 #unset_field	-
 #path	ssl
-#open	2014-11-26-20-10-58
+#open	2014-11-26-22-09-15
 #fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	version	cipher	curve	server_name	resumed	last_alert	next_protocol	established	cert_chain_fuids	client_cert_chain_fuids	subject	issuer	client_subject	client_issuer	validation_status
 #types	time	string	addr	port	addr	port	string	string	string	string	bool	string	string	bool	vector[string]	vector[string]	string	string	string	string	string
-1417032240.217375	CXWv6p3arKYeMETxOg	192.168.4.149	57874	198.144.100.130	443	TLSv12	TLS_RSA_WITH_RC4_128_SHA	-	-	F	-	-	T	Fy7SfH1oLcuAcd6IAa,F8z2JD18ydRPUBHEii,FnSsIw14vSAOZaNKz	(empty)	CN=a248.e.akamai.net,O=Akamai Technologies\, Inc.,L=Cambridge,ST=MA,C=US	CN=Cybertrust Public SureServer SV CA,O=Cybertrust Inc	-	-	unable to get local issuer certificate
-1417032242.609856	CjhGID4nQcgTWjvg4c	192.168.4.149	57875	64.18.25.102	443	TLSv12	TLS_DHE_RSA_WITH_AES_256_GCM_SHA384	-	-	F	-	-	T	F0rxju4vhomvrUKN8l,FdYsZv1drthHKaMFoh,FbTE0J3iXe7OWtiGz5	(empty)	CN=baltimore.omniroot.com,O=Verizon,C=US	CN=Cybertrust Public SureServer SV CA,O=Cybertrust Inc	-	-	ok
-1417032244.351864	CCvvfg3TEfuqmmG4bh	192.168.4.149	57876	198.144.100.130	443	TLSv12	TLS_RSA_WITH_RC4_128_SHA	-	-	F	-	-	T	FULlne3HwC8IZDofTj,FglhCs2zjxqEb3sU4j,Fqx70J3iGgQgVQo6W8	(empty)	CN=a248.e.akamai.net,O=Akamai Technologies\, Inc.,L=Cambridge,ST=MA,C=US	CN=Cybertrust Public SureServer SV CA,O=Cybertrust Inc	-	-	ok
-#close	2014-11-26-20-10-58
+1417039703.224578	CXWv6p3arKYeMETxOg	192.168.4.149	58529	128.32.169.140	443	TLSv10	TLS_RSA_WITH_RC4_128_MD5	-	-	F	-	-	T	FghNi02cFL9n6ttuMa	(empty)	CN=www.cviis.org,OU=Domain Control Validated	CN=Starfield Secure Certificate Authority - G2,OU=http://certs.starfieldtech.com/repository/,O=Starfield Technologies\, Inc.,L=Scottsdale,ST=Arizona,C=US	-	-	unable to get local issuer certificate
+1417039705.820093	CjhGID4nQcgTWjvg4c	192.168.4.149	58530	72.167.102.91	443	TLSv12	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384	secp256r1	-	F	-	-	T	Fz7gr4fSm2T2sEyDl,FhjNBG25vvoBO6CS79,FQFHJA20WL56NP6LXk	(empty)	CN=valid.sfig2.catest.starfieldtech.com,O=Starfield Technologies\, LLC,L=Scottsdale,ST=Arizona,C=US,serialNumber=R-1724741-6,businessCategory=Private Organization,1.3.6.1.4.1.311.60.2.1.2=#13074172697A6F6E61,1.3.6.1.4.1.311.60.2.1.3=#13025553	CN=Starfield Secure Certificate Authority - G2,OU=http://certs.starfieldtech.com/repository/,O=Starfield Technologies\, Inc.,L=Scottsdale,ST=Arizona,C=US	-	-	ok
+1417039710.349578	CCvvfg3TEfuqmmG4bh	192.168.4.149	58532	128.32.169.140	443	TLSv10	TLS_RSA_WITH_RC4_128_MD5	-	-	F	-	-	T	FRcFYq3e3hgYkZ8dS1	(empty)	CN=www.cviis.org,OU=Domain Control Validated	CN=Starfield Secure Certificate Authority - G2,OU=http://certs.starfieldtech.com/repository/,O=Starfield Technologies\, Inc.,L=Scottsdale,ST=Arizona,C=US	-	-	ok
+#close	2014-11-26-22-09-15
