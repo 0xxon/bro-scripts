@@ -23,13 +23,13 @@ export {
 	## MD5 hash values for recently validated chains along with the
 	## validation status are kept in this table to avoid constant
 	## validation every time the same certificate chain is seen.
-	global recently_validated_certs: table[string] of X509::Result = table()
+	global recently_validated_certs: table[string] of string = table()
 		&read_expire=5mins &synchronized &redef;
 }
 
 global intermediate_cache: table[string] of vector of opaque of x509 &synchronized;
 
-function cache_validate(chain: vector of opaque of x509): X509::Result
+function cache_validate(chain: vector of opaque of x509): string
 	{
 	local chain_hash: vector of string = vector();
 
@@ -43,7 +43,7 @@ function cache_validate(chain: vector of opaque of x509): X509::Result
 		return recently_validated_certs[chain_id];
 
 	local result = x509_verify(chain, root_certs);
-	recently_validated_certs[chain_id] = result;
+	recently_validated_certs[chain_id] = result$result_string;
 
 	# if we have a working chain where we did not store the intermediate certs
 	# in our cache yet - do so
@@ -63,7 +63,7 @@ function cache_validate(chain: vector of opaque of x509): X509::Result
 			}
 		}
 
-	return result;
+	return result$result_string;
 	}
 
 event ssl_established(c: connection) &priority=3
@@ -75,7 +75,7 @@ event ssl_established(c: connection) &priority=3
 
 	local intermediate_chain: vector of opaque of x509 = vector();
 	local issuer = c$ssl$cert_chain[0]$x509$certificate$issuer;
-	local result: X509::Result;
+	local result: string;
 
 	# look if we already have a working chain for the issuer of this cert.
 	# If yes, try this chain first instead of using the chain supplied from
@@ -87,9 +87,9 @@ event ssl_established(c: connection) &priority=3
 			intermediate_chain[i+1] = intermediate_cache[issuer][i];
 
 		result = cache_validate(intermediate_chain);
-		if ( result$result_string == "ok" )
+		if ( result == "ok" )
 			{
-			c$ssl$validation_status = result$result_string;
+			c$ssl$validation_status = result;
 			return;
 			}
 		}
@@ -105,9 +105,9 @@ event ssl_established(c: connection) &priority=3
 		}
 
 	result = cache_validate(chain);
-	c$ssl$validation_status = result$result_string;
+	c$ssl$validation_status = result;
 
-	if ( result$result_string != "ok" )
+	if ( result != "ok" )
 		{
 		local message = fmt("SSL certificate validation failed with (%s)", c$ssl$validation_status);
 		NOTICE([$note=Invalid_Server_Cert, $msg=message,
