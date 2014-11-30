@@ -24,7 +24,7 @@ export {
 	## validation status are kept in this table to avoid constant
 	## validation every time the same certificate chain is seen.
 	global recently_validated_certs: table[string] of string = table()
-		&read_expire=5mins &synchronized &redef;
+		&read_expire=5mins &redef;
 }
 
 global intermediate_cache: table[string] of vector of opaque of x509 &synchronized;
