@@ -25,9 +25,46 @@ export {
 	## validation every time the same certificate chain is seen.
 	global recently_validated_certs: table[string] of string = table()
 		&read_expire=5mins &redef;
+
+	## Event from a worker to the manager that it has encountered a new
+	## valid intermediate
+	global intermediate_add: event(key: string, value: vector of opaque of x509);
+
+	## Event from the manager to the workers that a new intermediate chain
+	## is to be added
+	global new_intermediate: event(key: string, value: vector of opaque of x509);
 }
 
-global intermediate_cache: table[string] of vector of opaque of x509 &synchronized;
+global intermediate_cache: table[string] of vector of opaque of x509;
+
+redef Cluster::manager2worker_events += /SSL::intermediate_add/;
+redef Cluster::worker2manager_events += /SSL::new_intermediate/;
+
+function add_to_cache(key: string, value: vector of opaque of x509)
+	{
+	intermediate_cache[key] = value;
+@if ( Cluster::is_enabled() )
+	event SSL::new_intermediate(key, value);
+@endif
+	}
+
+@if ( Cluster::is_enabled() && Cluster::local_node_type() != Cluster::MANAGER )
+event SSL::intermediate_add(key: string, value: vector of opaque of x509)
+	{
+	intermediate_cache[key] = value;
+	}
+@endif
+
+@if ( Cluster::is_enabled() && Cluster::local_node_type() == Cluster::MANAGER )
+event SSL::new_intermediate(key: string, value: vector of opaque of x509)
+	{
+	if ( key in intermediate_cache )
+		return;
+
+	intermediate_cache[key] = value;
+	event SSL::intermediate_add(key, value);
+	}
+@endif
 
 function cache_validate(chain: vector of opaque of x509): string
 	{
@@ -59,7 +96,7 @@ function cache_validate(chain: vector of opaque of x509): string
 				if ( i >=1 && i<=|result_chain|-2 )
 					cachechain[i-1] = result_chain[i];
 				}
-			intermediate_cache[icert$subject] = cachechain;
+			add_to_cache(icert$subject, cachechain);
 			}
 		}
 
