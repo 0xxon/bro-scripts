@@ -1,5 +1,7 @@
 # Short, simple script that adds the name of the node that processed
 # a connection to conn.log.
+#
+# Questions -> johanna@icir.org
 
 @load base/frameworks/cluster
 

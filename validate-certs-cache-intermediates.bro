@@ -1,6 +1,8 @@
 ##! Perform full certificate chain validation for SSL certificates.
 # Also caches all intermediate certificates encountered so far and use them
 # for future validations.
+#
+# Questions -> johanna@icir.org
 
 @load base/frameworks/notice
 @load base/protocols/ssl

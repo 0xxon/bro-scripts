@@ -25,6 +25,7 @@ This script identifies certificates on the local network which will be
 impacted by the [Chrome SHA-1 sunset changes](http://googleonlinesecurity.blogspot.com/2014/09/gradually-sunsetting-sha-1.html).
 
 [conn-workers.bro](conn-workers.bro)
+------------------------------------
 
 Short, simple script that adds the name of the node that processed a connection to conn.log.
 

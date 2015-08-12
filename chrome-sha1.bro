@@ -1,6 +1,8 @@
 # This script identifies certificates on the local network which will be
 # impacted by the Chrome SHA-1 sunset changes. For more details, please
 # see http://googleonlinesecurity.blogspot.com/2014/09/gradually-sunsetting-sha-1.html
+#
+# Questions -> johanna@icir.org
 
 @load base/protocols/ssl
 @load base/frameworks/notice
