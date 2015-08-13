@@ -29,6 +29,11 @@ impacted by the [Chrome SHA-1 sunset changes](http://googleonlinesecurity.blogsp
 
 Short, simple script that adds the name of the node that processed a connection to conn.log.
 
+[dhe-length.bro](dhe-length.bro)
+--------------------------------
+
+Another very short script that logs the DH discrete log group size to ssl.log.
+
 [validate-certs-cache-intermediates.bro](validate-certs-cache-intermediates.bro)
 --------------------------------------------------------------------------------
 This script performs certificate validation of all encountered X509 certificates.
