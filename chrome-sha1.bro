@@ -70,6 +70,7 @@ event ssl_established(c: connection)
 			next;
 
 		if ( /^sha1With/ in cert$sig_alg )
+			{
 			local msg: string = "An intermediate CA certificate in the chain uses SHA-1. Chrome will consider this unsafe in the future.";
 			if ( i == 0 )
 				msg = "The host certificate uses SHA-1. Chrome will consider this unsafe in the future.";
@@ -87,6 +88,7 @@ event ssl_established(c: connection)
 				n$fuid = chain_hashes[cert_hash];
 
 			NOTICE(n);
+			}
 		}
 
 	}
