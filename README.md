@@ -35,6 +35,7 @@ Short, simple script that adds the name of the node that processed a connection 
 Another very short script that logs the DH discrete log group size to ssl.log.
 
 [skip-local-certs.bro](skip-local-certs.bro)
+--------------------------------------------
 
 This script excludes certificates that are served by hosts in local_nets from x509.log
 
